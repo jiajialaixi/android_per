@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="request"
+            type="com.example.wj.android_per.bean.RequestBean" />
+
+        <variable
+            name="itemClick"
+            type="com.example.wj.android_per.ui.fragment.home.model.ItemClick" />
+
+        <variable
+            name="clickName"
+            type="String" />
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+    </data>
+
+    <LinearLayout
+        android:onClick="@{() -> itemClick.onSaveClick(clickName)}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{request.title}"
+            tools:text="测试" />
+
+        <TextView
+            android:id="@+id/firstName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="测试" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:image="@{request.image}"
+            android:visibility="@{TextUtils.isEmpty(request.image)?View.GONE:View.VISIBLE}"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+</layout>
+
