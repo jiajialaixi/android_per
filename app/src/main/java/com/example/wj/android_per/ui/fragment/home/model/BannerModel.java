@@ -2,16 +2,12 @@ package com.example.wj.android_per.ui.fragment.home.model;
 
 import android.databinding.ViewDataBinding;
 import android.view.View;
-import android.widget.TextView;
 
 import com.airbnb.epoxy.DataBindingEpoxyModel;
-import com.airbnb.epoxy.EpoxyAttribute;
 import com.airbnb.epoxy.EpoxyModelClass;
-import com.example.wj.android_per.BR;
 import com.example.wj.android_per.R;
-import com.example.wj.android_per.bean.RequestBean;
 import com.example.wj.android_per.common.view.ImageBanner;
-import com.example.wj.android_per.common.view.ToastUtil;
+import com.example.wj.android_per.common.view.ToastSnackbarUtiles;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +28,7 @@ public abstract class BannerModel extends DataBindingEpoxyModel {
         list.add("http://img.taopic.com/uploads/allimg/121019/234917-121019231h258.jpg");
         imageBanner.setList(list);
         imageBanner.setOnBannerClickListener(pos -> {
-            ToastUtil.show(pos+"");
+            ToastSnackbarUtiles.show(imageBanner,pos+"");
         });
     }
 }

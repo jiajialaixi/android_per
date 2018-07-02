@@ -2,7 +2,9 @@ package com.example.wj.android_per.common.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 import com.example.wj.android_per.App;
 
@@ -10,7 +12,7 @@ import com.example.wj.android_per.App;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
-public class ToastUtil {
+public class ToastSnackbarUtiles {
 
     public static void show(Context context, String msg) {
         show(context, msg, true);
@@ -46,6 +48,13 @@ public class ToastUtil {
         Observable.just(message).observeOn(AndroidSchedulers.mainThread()).subscribe(s -> {
             Toast.makeText(App.getContext(), s, Toast.LENGTH_SHORT).show();
         }, throwable -> {
+            Log.d("TAG", "", throwable);
+        });
+    }
+    public static void show(View view , String message) {
+        Observable.just(message).observeOn(AndroidSchedulers.mainThread()).subscribe(s -> {
+            Snackbar.make(view,s,Snackbar.LENGTH_SHORT).show();
+            }, throwable -> {
             Log.d("TAG", "", throwable);
         });
     }

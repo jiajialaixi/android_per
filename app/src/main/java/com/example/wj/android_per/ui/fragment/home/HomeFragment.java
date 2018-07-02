@@ -1,69 +1,99 @@
 package com.example.wj.android_per.ui.fragment.home;
 
 
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.airbnb.epoxy.EpoxyRecyclerView;
+import com.example.wj.android_per.App;
 import com.example.wj.android_per.R;
 import com.example.wj.android_per.bean.RequestBean;
-import com.example.wj.android_per.common.view.AutoGridLayoutManager;
 import com.example.wj.android_per.ui.fragment.home.adapter.HomePageAdpater;
+import com.example.wj.android_per.ui.fragment.home.viewmodel.HomeViewModel;
+import com.squareup.leakcanary.RefWatcher;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
 public class HomeFragment extends Fragment {
 
 
-    @BindView(R.id.epoxy_recycle_view)
     EpoxyRecyclerView epoxyRecycleView;
     Unbinder unbinder;
     private HomePageAdpater homePageAdpater;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        return view;
+        ViewDataBinding inflate = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
+
+        return inflate.getRoot();
+    }
+
+    public static String ARG_ITEM_ID = "item_id";//传递的key值
+
+    //传递数据
+    public static HomeFragment newInstance(String plantId) {
+        Bundle bundle = new Bundle();
+        bundle.putString(ARG_ITEM_ID, plantId);
+        HomeFragment homeFragment = new HomeFragment();
+        homeFragment.setArguments(bundle);
+        return homeFragment;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        epoxyRecycleView = view.findViewById(R.id.epoxy_recycle_view);
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            String string = arguments.getString(ARG_ITEM_ID);
+        }
+        init();
+        data();
+    }
+
+    public void data() {
+        HomeViewModel homeViewModel = ViewModelProviders.of(getActivity()).get(HomeViewModel.class);
+        homeViewModel.getUser().observe(getActivity(), user -> {
+            if (null != user.getData() & user.getData().size() > 0) {//处理数据
+                homePageAdpater.setDate(user.getData());
+            } else if (null != user.getThrowable()) {//处理异常信息
+                user.getThrowable().printStackTrace();
+            }
+
+        });
+        homeViewModel.getLoader();
+    }
+
+
+    public void init() {
         homePageAdpater = new HomePageAdpater();
-      /*  GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
-        gridLayoutManager.setSpanSizeLookup(homePageAdpater.getSpanSizeLookup());*/
         epoxyRecycleView.setItemSpacingPx(5);
         epoxyRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         epoxyRecycleView.setAdapter(homePageAdpater);
-
-
-        init();
-    }
-
-    public void init(){
-        List<RequestBean> list = new ArrayList<>();
-        list.add(new RequestBean("databing", "mvvm", "http://img.taopic.com/uploads/allimg/121019/234917-121019231h258.jpg"));
-        list.add(new RequestBean("优化", "mvvm", "http://img.taopic.com/uploads/allimg/121019/234917-121019231h258.jpg"));
-        homePageAdpater.setDate(list);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        RefWatcher refWatcher = App.getRefWatcher(getActivity());
+        refWatcher.watch(getActivity());
+        if(null!=unbinder){
+            unbinder.unbind();
+        }
     }
 }

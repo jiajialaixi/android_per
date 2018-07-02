@@ -11,7 +11,7 @@ import android.widget.EditText;
 import com.example.wj.android_per.R;
 import com.example.wj.android_per.base.BaseActivity;
 import com.example.wj.android_per.common.http.Api;
-import com.example.wj.android_per.common.view.ToastUtil;
+import com.example.wj.android_per.common.view.ToastSnackbarUtiles;
 import com.example.wj.android_per.ui.MainActivity;
 
 
@@ -61,7 +61,7 @@ public class LoginActivity extends BaseActivity {
                     startActivity(new Intent(getBaseContext(), MainActivity.class));
                     finish();
                 }
-                ToastUtil.show(request.getMsg());
+                ToastSnackbarUtiles.show(request.getMsg());
 
             }, throwable -> {
 

@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.example.wj.android_per.R;
 import com.example.wj.android_per.base.BaseActivity;
+import com.example.wj.android_per.common.lifecy.BasePresenter;
+import com.example.wj.android_per.common.lifecy.MainPresenter;
 import com.example.wj.android_per.ui.fragment.home.HomeFragment;
 import com.example.wj.android_per.ui.fragment.my.MyFragment;
 
@@ -18,15 +20,28 @@ public class MainActivity extends BaseActivity {
     BottomNavigationView bottomNavigationView;
     private HomeFragment homeFragment;
     private MyFragment myFragment;
+    private BasePresenter basePresenter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        basePresenter = new BasePresenter();
+        getLifecycle().addObserver(basePresenter);//添加LifecycleObserver
         ButterKnife.bind(this);
-        init();
+        if(savedInstanceState==null){
+            init();
+        }
+
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
 
     public void init() {
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
@@ -35,7 +50,7 @@ public class MainActivity extends BaseActivity {
             switch (item.getItemId()) {
                 case R.id.item1:
                     if (homeFragment == null) {
-                        homeFragment = new HomeFragment();
+                        homeFragment = HomeFragment.newInstance("jiajialaixi");
                         transaction.add(R.id.fragment_container, homeFragment);
                     }
                     transaction.show(homeFragment);
@@ -51,6 +66,7 @@ public class MainActivity extends BaseActivity {
             transaction.commitAllowingStateLoss();
             return true;
         });
+        //默认第一个
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         bottomNavigationView.getMenu().getItem(0).setChecked(true);
         if (homeFragment == null) {
@@ -71,4 +87,5 @@ public class MainActivity extends BaseActivity {
         }
 
     }
+
 }

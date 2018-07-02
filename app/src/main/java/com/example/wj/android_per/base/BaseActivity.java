@@ -4,17 +4,19 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.example.wj.android_per.App;
 import com.example.wj.android_per.common.eventbus.EventBusDelegate;
 import com.example.wj.android_per.common.eventbus.IEventBus;
+import com.squareup.leakcanary.RefWatcher;
 
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
-public class BaseActivity extends RxAppCompatActivity {
+public class BaseActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
@@ -33,6 +35,8 @@ public class BaseActivity extends RxAppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        RefWatcher refWatcher = App.getRefWatcher(this);
+        refWatcher.watch(this);
         if (this instanceof IEventBus) {
             EventBusDelegate.unregister(this);
         }

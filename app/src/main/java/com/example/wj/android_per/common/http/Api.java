@@ -9,7 +9,7 @@ import com.example.wj.android_per.common.http.adapter.StringValueAdapter;
 import com.example.wj.android_per.common.http.json.JsonConverterFactory;
 import com.example.wj.android_per.common.persistence.FastData;
 import com.example.wj.android_per.common.view.DeviceUtil;
-import com.example.wj.android_per.common.view.ToastUtil;
+import com.example.wj.android_per.common.view.ToastSnackbarUtiles;
 import com.google.gson.GsonBuilder;
 
 import java.nio.charset.Charset;
@@ -151,7 +151,7 @@ public class Api {
 
                 Maybe.just("没有可用网络, 请连接网络后重试")
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(ToastUtil::show, throwable -> {
+                        .subscribe(ToastSnackbarUtiles::show, throwable -> {
                             Log.e("Debug", "error", throwable);
                         });
 

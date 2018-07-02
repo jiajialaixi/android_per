@@ -10,7 +10,7 @@ import com.airbnb.epoxy.EpoxyModelClass;
 import com.example.wj.android_per.BR;
 import com.example.wj.android_per.R;
 import com.example.wj.android_per.bean.RequestBean;
-import com.example.wj.android_per.common.view.ToastUtil;
+import com.example.wj.android_per.common.view.ToastSnackbarUtiles;
 
 @EpoxyModelClass(layout = R.layout.item_view)
 public abstract class HomePageItemModel extends DataBindingEpoxyModel {
@@ -33,7 +33,7 @@ public abstract class HomePageItemModel extends DataBindingEpoxyModel {
         TextView firstName = root.findViewById(R.id.firstName);
         firstName.setText("非著名程序员");
         firstName.setOnClickListener(v -> {
-            ToastUtil.show("点击。。。");
+            ToastSnackbarUtiles.show("点击。。。");
         });
     }
 
