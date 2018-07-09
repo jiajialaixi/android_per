@@ -18,8 +18,8 @@ public class ImageUtile {
 
     public static RequestOptions apply(){
         RequestOptions requestOptions=new RequestOptions();
-        requestOptions.centerCrop();
-        requestOptions.error(R.mipmap.ic_launcher);
+        requestOptions.centerCrop();//裁剪
+        requestOptions.error(R.mipmap.ic_launcher);//失败图片
         return requestOptions;
     }
     @BindingAdapter("android:image")

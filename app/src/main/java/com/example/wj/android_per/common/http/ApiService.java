@@ -1,6 +1,7 @@
 package com.example.wj.android_per.common.http;
 
 
+import com.example.wj.android_per.bean.HomePageBean;
 import com.example.wj.android_per.common.eventbus.UserBean;
 
 import java.util.List;
@@ -20,6 +21,6 @@ public interface ApiService {
      * 首页
      * */
     @GET("user/home")
-    Observable<RequestBean<List<com.example.wj.android_per.bean.RequestBean>>> home();
+    Observable<RequestBean<HomePageBean>> home();
 
 }

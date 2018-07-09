@@ -9,6 +9,7 @@ public class RequestBean extends BaseObservable {
     private String title;
     private String moe;
     private String image;
+    private String type;
 
 
     public RequestBean() {
@@ -40,6 +41,10 @@ public class RequestBean extends BaseObservable {
     public void setMoe(String moe) {
         this.moe = moe;
 
+    }
+
+    public String getType() {
+        return type;
     }
 
     @Bindable

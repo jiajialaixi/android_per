@@ -105,5 +105,8 @@ dependencies {
     //banner
     implementation 'com.bigkoo:ConvenientBanner:2.1.4'
     implementation 'android.arch.lifecycle:extensions:1.1.1'
+    implementation 'com.android.support:cardview-v7:27.+'
+    implementation 'com.android.support.constraint:constraint-layout:+'
+    implementation 'com.android.support.constraint:constraint-layout-solver:+'
 }
 

@@ -68,7 +68,7 @@ public class ImageBanner extends LinearLayout {
                         return R.layout.item_localimage;
                     }
                 }, list)
-                 .setPageIndicator(new int[]{R.drawable.page_indicator_unfocused,R.drawable.page_indicator_focused})
+                 //.setPageIndicator(new int[]{R.drawable.page_indicator_unfocused,R.drawable.page_indicator_focused})
                 .setOnItemClickListener(position -> {
                     onClickListener.onClickListener(position);
                 });

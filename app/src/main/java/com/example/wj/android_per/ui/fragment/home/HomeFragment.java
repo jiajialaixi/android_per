@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,10 +70,8 @@ public class HomeFragment extends Fragment {
     public void data() {
         HomeViewModel homeViewModel = ViewModelProviders.of(getActivity()).get(HomeViewModel.class);
         homeViewModel.getUser().observe(getActivity(), user -> {
-            if (null != user.getData() & user.getData().size() > 0) {//处理数据
-                homePageAdpater.setDate(user.getData());
-            } else if (null != user.getThrowable()) {//处理异常信息
-                user.getThrowable().printStackTrace();
+            if (null != user ) {//处理数据
+                homePageAdpater.setDate(user);
             }
 
         });
@@ -83,7 +82,11 @@ public class HomeFragment extends Fragment {
     public void init() {
         homePageAdpater = new HomePageAdpater();
         epoxyRecycleView.setItemSpacingPx(5);
-        epoxyRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        gridLayoutManager.setSpanSizeLookup(homePageAdpater.getSpanSizeLookup());
+        homePageAdpater.setSpanCount(2);
+        epoxyRecycleView.setHasFixedSize(true);
+        epoxyRecycleView.setLayoutManager(gridLayoutManager);
         epoxyRecycleView.setAdapter(homePageAdpater);
     }
 

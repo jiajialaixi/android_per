@@ -41,7 +41,7 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="150dp"
             android:image="@{request.image}"
             android:visibility="@{TextUtils.isEmpty(request.image)?View.GONE:View.VISIBLE}"
             tools:ignore="ContentDescription" />
