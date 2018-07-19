@@ -32,9 +32,7 @@ public abstract class HomePageItemModel extends DataBindingEpoxyModel {
         View root = binding.getRoot();
         TextView firstName = root.findViewById(R.id.firstName);
         firstName.setText("非著名程序员");
-        firstName.setOnClickListener(v -> {
-            ToastSnackbarUtiles.show("点击。。。");
-        });
+        firstName.setOnClickListener(v -> ToastSnackbarUtiles.show("点击。。。"));
     }
 
 

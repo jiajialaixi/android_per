@@ -33,8 +33,17 @@ public class HomeFragment extends Fragment {
 
 
     EpoxyRecyclerView epoxyRecycleView;
-    Unbinder unbinder;
     private HomePageAdpater homePageAdpater;
+    private static final String ARG_ITEM_ID = "item_id";//传递的key值
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            String string = arguments.getString(ARG_ITEM_ID);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,7 +53,6 @@ public class HomeFragment extends Fragment {
         return inflate.getRoot();
     }
 
-    public static String ARG_ITEM_ID = "item_id";//传递的key值
 
     //传递数据
     public static HomeFragment newInstance(String plantId) {
@@ -58,11 +66,10 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        epoxyRecycleView = view.findViewById(R.id.epoxy_recycle_view);
-        Bundle arguments = getArguments();
-        if (arguments != null) {
-            String string = arguments.getString(ARG_ITEM_ID);
+        if (view!=null){
+            epoxyRecycleView = view.findViewById(R.id.epoxy_recycle_view);
         }
+
         init();
         data();
     }
@@ -95,8 +102,5 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         RefWatcher refWatcher = App.getRefWatcher(getActivity());
         refWatcher.watch(getActivity());
-        if(null!=unbinder){
-            unbinder.unbind();
-        }
     }
 }

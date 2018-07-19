@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -101,7 +100,7 @@ public class ImageBanner extends LinearLayout {
 
         @Override
         public void updateUI(String data) {
-            ImageUtile.setImageUrl(imageView, data);
+            ImageUtil.setImageUrl(imageView, data);
         }
     }
 }

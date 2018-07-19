@@ -14,7 +14,7 @@ import com.example.wj.android_per.R;
 /*
 * @ imageUtil 图片加载
 * */
-public class ImageUtile {
+public class ImageUtil {
 
     public static RequestOptions apply(){
         RequestOptions requestOptions=new RequestOptions();
@@ -22,6 +22,13 @@ public class ImageUtile {
         requestOptions.error(R.mipmap.ic_launcher);//失败图片
         return requestOptions;
     }
+    public static RequestOptions applyNoError(){
+        RequestOptions requestOptions=new RequestOptions();
+        requestOptions.centerCrop();//裁剪
+        requestOptions.error(R.mipmap.ic_launcher);//失败图片
+        return requestOptions;
+    }
+
     @BindingAdapter("android:image")
     public static void setImageUrl(ImageView view, String url) {
         Glide.with(view.getContext())
@@ -30,8 +37,12 @@ public class ImageUtile {
                 .thumbnail(0.05f)
                 .into(view);
     }
-    public static void displayImage(Context context, @NonNull String uri, ImageView imageView) {
 
-
+    public static void displayImage( @NonNull int resource, ImageView imageView) {
+        Glide.with(imageView.getContext())
+                .load(resource)
+                .apply(applyNoError())
+                .thumbnail(0.05f)
+                .into(imageView);
     }
 }

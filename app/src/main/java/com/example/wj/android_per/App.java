@@ -10,25 +10,25 @@ import com.squareup.leakcanary.RefWatcher;
 
 public class App extends MultiDexApplication {
 
-    protected static Context context;
 
-
+    private static App instance;
 
     public static Context getContext() {
-        return context;
+        return instance.getApplicationContext();
     }
+
     private RefWatcher refWatcher;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        context=getApplicationContext();
+        instance = this;
         //注册存储数据的
         FastData.getInstance();
-        refWatcher= setupLeakCanary();
-
+        refWatcher = setupLeakCanary();
     }
 
+    //检测内存的
     private RefWatcher setupLeakCanary() {
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return RefWatcher.DISABLED;
