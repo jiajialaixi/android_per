@@ -3,15 +3,11 @@ package com.example.wj.android_per.bean;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
-import com.example.wj.android_per.BR;
 
 public class RequestBean extends BaseObservable {
     private String title;
     private String moe;
     private String image;
-    private String type;
-
-
     public RequestBean() {
     }
 
@@ -19,9 +15,7 @@ public class RequestBean extends BaseObservable {
         this.title = title;
         this.moe = moe;
         this.image = image;
-/*        notifyPropertyChanged(BR.moe);
-        notifyPropertyChanged(BR.image);
-        notifyPropertyChanged(BR.title);*/
+
     }
 
     public void setTitle(String title) {
@@ -43,9 +37,6 @@ public class RequestBean extends BaseObservable {
 
     }
 
-    public String getType() {
-        return type;
-    }
 
     @Bindable
     public String getImage() {

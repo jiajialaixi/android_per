@@ -1,7 +1,49 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    ext {
+        //系统版本
+        applicationId = "com.example.wj.android_per"
+        // Sdk and tools
+        compileSdkVersion = 27
+        minSdkVersion = 19
+        targetSdkVersion = 27
+        buildToolsVersion = '27.0.3'
+        gradleVersion = '3.0.1'
+        //app版本
+        versionCode = new Date().format("yyyyMMdd").toInteger()
+        versionName = "1.0"
+        //签名文件
+        keyAlias = 'app_per'
+        keyPassword = '111111'
+        storePassword = '111111'
+        storeFile = '../app_per.jks'
 
+        // App dependencies
+        junit = '4.12'
+        buildVersion = '27.1.1'
+        retrofit = '2.4.0'
+        retrofitGson = '2.3.0'
+        gson = '2.8.2'
+        okhttp = '3.10.0'
+        rxandroid = '2.0.1'
+        rxjava = '2.1.3'
+        eventbus = '3.1.1'
+        glide = '4.6.1'
+        epoxy = '2.9.0'
+        smartRefreshLayout = '1.0.4'
+        leakcanary = '1.5.4'
+        multidex = '1.0.3'
+        convenientBanner = '2.1.4'
+        butterknifeVersion = '8.5.1'
+        lifecycle = '1.1.1'
+        cardview = '27.+'
+        dagger = '2.14.1'
+        roomVersion = '1.1.1'
+        workVersion = '1.0.0-alpha04'
+        material_dialogs = '0.9.6.0'
+
+    }
     repositories {
         jcenter()
         maven {

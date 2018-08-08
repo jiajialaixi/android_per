@@ -1,6 +1,7 @@
 package com.example.wj.android_per.ui.login;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.inputmethod.EditorInfo;
@@ -12,7 +13,6 @@ import com.example.wj.android_per.R;
 import com.example.wj.android_per.base.BaseActivity;
 import com.example.wj.android_per.common.http.Api;
 import com.example.wj.android_per.common.view.ToastSnackbarUtiles;
-import com.example.wj.android_per.ui.MainActivity;
 
 
 import butterknife.BindView;
@@ -33,6 +33,10 @@ public class LoginActivity extends BaseActivity {
     EditText mPasswordView;
     @BindView(R.id.email_sign_in_button)
     Button mEmailSignInButton;
+
+    public static  void open(Context context){
+        context.startActivity(new Intent(context,LoginActivity.class));
+    }
 
 
     @Override
@@ -58,7 +62,8 @@ public class LoginActivity extends BaseActivity {
             Api.getApiServiceInstance().login(phone, password).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread()).subscribe(request -> {
                 if (request.isSuccess()) {
-                    startActivity(new Intent(getBaseContext(), MainActivity.class));
+
+
                     finish();
                 }
                 ToastSnackbarUtiles.show(request.getMsg());

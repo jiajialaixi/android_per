@@ -1,9 +1,9 @@
 package com.example.wj.android_per.common.eventbus;
 
-import android.util.Log;
 
 
 import com.example.wj.android_per.BuildConfig;
+import com.example.wj.android_per.common.view.LogUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -20,7 +20,7 @@ public class EventBusDelegate {
             EventBus.getDefault().register(context);
         } catch (Throwable e) {
             if (BuildConfig.DEBUG) {
-                Log.d(TAG, "error", e);
+                LogUtil.d(e);
             }
             // ignore
         }
@@ -31,7 +31,7 @@ public class EventBusDelegate {
             EventBus.getDefault().unregister(context);
         } catch (Throwable e) {
             if (BuildConfig.DEBUG) {
-                Log.d(TAG, "error", e);
+                LogUtil.d(e);
             }
             // ignore
         }

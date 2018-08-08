@@ -3,9 +3,9 @@ package com.example.wj.android_per.common.view;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
 import com.example.wj.android_per.App;
 
 
@@ -43,20 +43,17 @@ public class ToastSnackbarUtiles {
         } catch (Exception e) {
         }
     }
-
+    @SuppressLint("CheckResult")
     public static void show(String message) {
-        Observable.just(message).observeOn(AndroidSchedulers.mainThread()).subscribe(s -> {
-            Toast.makeText(App.getContext(), s, Toast.LENGTH_SHORT).show();
-        }, throwable -> {
-            Log.d("TAG", "", throwable);
-        });
+        Observable.just(message).observeOn(AndroidSchedulers.mainThread()).subscribe(s ->
+                        Toast.makeText(App.getContext(), s, Toast.LENGTH_SHORT).show()
+                , throwable -> LogUtil.d(throwable));
     }
-    public static void show(View view , String message) {
-        Observable.just(message).observeOn(AndroidSchedulers.mainThread()).subscribe(s -> {
-            Snackbar.make(view,s,Snackbar.LENGTH_SHORT).show();
-            }, throwable -> {
-            Log.d("TAG", "", throwable);
-        });
+    @SuppressLint("CheckResult")
+    public static void show(View view, String message) {
+        Observable.just(message).observeOn(AndroidSchedulers.mainThread()).subscribe(s ->
+                        Snackbar.make(view, s, Snackbar.LENGTH_SHORT).show()
+                , throwable -> LogUtil.d(throwable));
     }
 
 

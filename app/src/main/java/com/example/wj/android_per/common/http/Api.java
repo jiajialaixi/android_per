@@ -1,7 +1,7 @@
 package com.example.wj.android_per.common.http;
 
 import android.text.TextUtils;
-import android.util.Log;
+
 
 
 import com.example.wj.android_per.BuildConfig;
@@ -9,6 +9,7 @@ import com.example.wj.android_per.common.http.adapter.StringValueAdapter;
 import com.example.wj.android_per.common.http.json.JsonConverterFactory;
 import com.example.wj.android_per.common.persistence.FastData;
 import com.example.wj.android_per.common.view.DeviceUtil;
+import com.example.wj.android_per.common.view.LogUtil;
 import com.example.wj.android_per.common.view.ToastSnackbarUtiles;
 import com.google.gson.GsonBuilder;
 
@@ -83,7 +84,7 @@ public class Api {
         httpClientBuilder.readTimeout(30, TimeUnit.SECONDS);
 
         //addCache(httpClientBuilder);
-       // addCheckNetworkChain(httpClientBuilder);
+        addCheckNetworkChain(httpClientBuilder);
 
         httpClientBuilder.networkInterceptors()
                 .add(chain -> {
@@ -121,7 +122,7 @@ public class Api {
             Charset UTF8 = Charset.forName("UTF-8");
             Response response = chain.proceed(chain.request());
             ResponseBody responseBody = response.body();
-            Log.d("response", response.toString());
+            LogUtil.d(response.toString());
             String resultsBody = null;
             if (HttpHeaders.hasBody(response)) {
                 BufferedSource source = responseBody.source();
@@ -152,10 +153,9 @@ public class Api {
                 Maybe.just("没有可用网络, 请连接网络后重试")
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(ToastSnackbarUtiles::show, throwable -> {
-                            Log.e("Debug", "error", throwable);
+                            LogUtil.d(throwable);
                         });
 
-                // @notice  由于服务器不支持缓存，所以这里其实是没有起作用，等服务器起作用就可以了
                 request = request.newBuilder()
                         .cacheControl(CacheControl.FORCE_CACHE)
                         .build();
@@ -173,7 +173,7 @@ public class Api {
         if (!TextUtils.isEmpty(FastData.getToken())) {
             String authorizationHeader = String.format(Locale.CHINA, "Bearer %s", FastData.getToken());
             req.addHeader("Authorization", authorizationHeader);
-            Log.d("OkHttp", "Authorization: " + authorizationHeader);
+            LogUtil.d("Authorization: " + authorizationHeader);
         }
     }
 

@@ -10,7 +10,7 @@
 
         <variable
             name="itemClick"
-            type="com.example.wj.android_per.ui.fragment.home.model.ItemClick" />
+            type="com.example.wj.android_per.ui.home.fragment.home.model.ItemClick" />
 
         <variable
             name="clickName"

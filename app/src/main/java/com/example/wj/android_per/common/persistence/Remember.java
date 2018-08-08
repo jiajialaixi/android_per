@@ -5,7 +5,9 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.SystemClock;
 import android.text.TextUtils;
-import android.util.Log;
+
+
+import com.example.wj.android_per.common.view.LogUtil;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -85,7 +87,7 @@ public class Remember {
         mWasInitialized = true;
 
         long delta = SystemClock.uptimeMillis() - start;
-        Log.i(TAG, "Remember took " + delta + " ms to init");
+        LogUtil.d("Remember took " + delta + " ms to init");
     }
 
     /**

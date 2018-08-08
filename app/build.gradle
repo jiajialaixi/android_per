@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion rootProject.compileSdkVersion
     defaultConfig {
-        applicationId "com.example.wj.android_per"
-        minSdkVersion 19
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        applicationId rootProject.applicationId
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
         multiDexEnabled true
         flavorDimensions "versionCode"
 
@@ -21,10 +21,10 @@ android {
     signingConfigs {
         signingConfig {
             try {
-                keyAlias 'app_per'
-                keyPassword '111111'
-                storePassword '111111'
-                storeFile file('../app_per.jks')
+                keyAlias rootProject.keyAlias
+                keyPassword rootProject.keyPassword
+                storePassword rootProject.storePassword
+                storeFile file(rootProject.storeFile)
                 v2SigningEnabled false
             } catch (ex) {
                 throw new InvalidUserDataException("You should mack soure you key store file and password .")
@@ -54,12 +54,13 @@ android {
     }
     productFlavors {
         product {
-            buildConfigField "String", "BASE_URL", "\"http://192.168.8.191:8014\""
+            buildConfigField "String", "BASE_URL", "\"http://192.168.8.125:8014\""
         }
     }
     packagingOptions {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
         exclude 'META-INF/rxjava.properties'
+        exclude 'LICENSE.txt'
     }
     repositories {
 
@@ -68,51 +69,66 @@ android {
         }
 
     }
-    buildToolsVersion '27.0.3'
+    buildToolsVersion rootProject.buildToolsVersion
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //noinspection GradleCompatible
-    testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    testImplementation "junit:junit:$rootProject.junit"
+    implementation "com.android.support:design:$rootProject.buildVersion"
+    implementation "com.android.support:support-v4:$rootProject.buildVersion"
+    implementation "com.android.support:appcompat-v7:$rootProject.buildVersion"
     //接口
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitGson"
+    implementation "com.google.code.gson:gson:$rootProject.gson"
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.3'
+    implementation "com.squareup.okhttp3:okhttp:$rootProject.okhttp"
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroid"
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjava"
     //
-    implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation "org.greenrobot:eventbus:$rootProject.eventbus"
     //
-    implementation 'com.github.bumptech.glide:glide:4.6.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+    implementation "com.github.bumptech.glide:glide:$rootProject.glide"
+    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.glide"
     //
-    implementation 'com.airbnb.android:epoxy:2.9.0'
-    annotationProcessor 'com.airbnb.android:epoxy-processor:2.9.0'
-    implementation 'com.airbnb.android:epoxy-databinding:2.9.0'
+    implementation "com.airbnb.android:epoxy:$rootProject.epoxy"
+    annotationProcessor "com.airbnb.android:epoxy-processor:$rootProject.epoxy"
+    implementation "com.airbnb.android:epoxy-databinding:$rootProject.epoxy"
 
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4'
+    implementation "com.scwang.smartrefresh:SmartRefreshLayout:$rootProject.smartRefreshLayout"
 
     // (or latest Epoxy version)
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
-    implementation 'com.jakewharton:butterknife:8.5.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-    implementation 'com.android.support:multidex:1.0.3'
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.leakcanary"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakcanary"
+    implementation "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
+    // implementation "com.android.support:multidex:$rootProject.multidex"
     //banner
-    implementation 'com.bigkoo:ConvenientBanner:2.1.4'
-    implementation 'android.arch.lifecycle:extensions:1.1.1'
-    implementation 'com.android.support:cardview-v7:27.+'
-    implementation 'com.android.support.constraint:constraint-layout:+'
-    implementation 'com.android.support.constraint:constraint-layout-solver:+'
+    implementation "com.bigkoo:ConvenientBanner:$rootProject.convenientBanner"
+    implementation "android.arch.lifecycle:extensions:$rootProject.lifecycle"
+    implementation "com.android.support:cardview-v7:$rootProject.cardview"
+    implementation "com.android.support.constraint:constraint-layout:+"
+    implementation "com.android.support.constraint:constraint-layout-solver:+"
 
+    implementation "com.google.dagger:dagger:$rootProject.dagger"
+    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.dagger"
 
+    implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
+    annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomVersion"
+    implementation "android.arch.work:work-runtime-ktx:$rootProject.workVersion"
+    implementation "com.afollestad.material-dialogs:core:$rootProject.material_dialogs"
+
+    implementation 'com.android.support:support-annotations:27.1.1'
+    androidTestCompile 'com.android.support:support-annotations:27.1.1'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.1') {
+        exclude group: 'javax.inject'
+    }
+    androidTestCompile 'com.android.support.test.espresso:espresso-intents:3.0.2'
+    androidTestCompile 'com.android.support.test.espresso:espresso-contrib:3.0.2'
+    androidTestCompile 'com.android.support.test:runner:1.0.2'
 
 }
-
